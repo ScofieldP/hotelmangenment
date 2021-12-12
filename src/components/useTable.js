@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
 }))
-export default function useTable(records, headCells) {
+export default function useTable(records, headCells, filterFn) {
     const classes = useStyles();
 
     const TblContainer = props => (
@@ -35,14 +35,20 @@ export default function useTable(records, headCells) {
                     headCells.map(headCell =>(<TableCell key ={headCell.id}>
                         
                             {headCell.label}
-                        
+                         
                     </TableCell>))
                 }
             </TableRow>
         </TableHead>)
     }
+
+    const recordsAfterPagingAndSorting = () => {
+        return filterFn.fn(records);
+    }
     return {
         TblContainer,
-        TblHead
+        TblHead,
+        recordsAfterPagingAndSorting
+
     }
 }

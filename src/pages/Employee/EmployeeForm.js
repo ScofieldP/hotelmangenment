@@ -20,7 +20,7 @@ const initialFValues = {
     mobile: '',
     city: '',
     gender: 'male',
-    departmentId: '',
+    departmentId: ''
     
 }
 
@@ -28,6 +28,8 @@ const initialFValues = {
 
 
 export default function EmployeeForm(props) {
+    const {addOrEdit, recordForEdit} = props
+    
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('fullName' in fieldValues)
@@ -52,18 +54,22 @@ export default function EmployeeForm(props) {
         setErrors,
         handleInputChange,
         resetForm
-    } =  useForm(initialFValues, true, validate);
-
+    } = useForm(initialFValues, true, validate);
     
 
-const handleSubmit = e =>{
-    e.preventDefault();
-    if(validate()){
-        employeesService.insertEmployee(values)
-        resetForm()
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (validate()) {
+            addOrEdit(values, resetForm);
+        }
     }
+useEffect(() => {
+    if (recordForEdit != null)
+        setValues({
+            ...recordForEdit
+        })
+}, [recordForEdit])
 
-}
     return (
             <Form onSubmit={handleSubmit}>
 
@@ -118,7 +124,7 @@ const handleSubmit = e =>{
                     <div className='btnMargin'>
                         <Controls.Button
                             className="btn1"
-                            type="submit"
+                             type="submit"
                             text="Submit" />
                         <Controls.Button
                             text="Reset"

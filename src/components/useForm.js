@@ -39,13 +39,14 @@ export function useForm(initialFValues, validateOnChange = false, validate) {
 const useStyles = makeStyles(theme =>({
     root: {
         '& .MuiFormControl-root':{
-            width:'45%',
+            width:'85%',
             marginBottom: '10px',
-            marginLeft:'300px',
+            marginTop: '10px',
+         
             
         },
-        '& .makeStyles-root-3':{
-            marginRight: '10px',
+        '& .makeStyles-root-5':{
+            marginRight: '20px',
         }
     }
 }))
